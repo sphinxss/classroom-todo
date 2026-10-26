@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Classroom To-Do</title>
+<style>
+  :root {
+    --bg: #0f1115; --card: #171a21; --line: #262b36; --text: #e6e9ef;
+    --muted: #9aa3b2; --accent: #6ea8fe; --late: #ff6b6b; --today: #ffa94d;
+    --week: #ffd43b; --ok: #51cf66;
+  }
+  @media (prefers-color-scheme: light) {
+    :root { --bg: #f6f7f9; --card: #fff; --line: #e3e6ec; --text: #1b1f27;
+             --muted: #667085; --accent: #1c5fd4; }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 32px 20px 64px; background: var(--bg); color: var(--text);
+    font: 15px/1.5 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; }
+  header h1 { margin: 0 0 6px; font-size: 26px; letter-spacing: -0.02em; }
+  .summary { color: var(--muted); font-size: 13px; margin-bottom: 28px; }
+  section { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 4px 18px 8px; margin-bottom: 16px; }
+  h2 { font-size: 14px; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase;
+       color: var(--muted); margin: 16px 0 10px; display: flex; gap: 8px; align-items: baseline; }
+  .count { color: var(--muted); font-weight: 400; text-transform: none; letter-spacing: 0; opacity: .75; }
+  ul { list-style: none; margin: 0; padding: 0; }
+  li.task { display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; border-top: 1px solid var(--line); cursor: pointer; }
+  li.task:first-child { border-top: 0; }
+  .check { flex: 0 0 18px; width: 18px; height: 18px; margin-top: 2px; border: 1.5px solid var(--muted);
+           border-radius: 5px; position: relative; transition: all .12s ease; }
+  .task.done .check { background: var(--ok); border-color: var(--ok); }
+  .task.done .check::after { content: ""; position: absolute; left: 5px; top: 1px; width: 4px; height: 9px;
+           border: solid #0b0d12; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+  .body { flex: 1; min-width: 0; }
+  .title-line a, .title-line .title { color: var(--text); text-decoration: none; font-weight: 500; }
+  .title-line a:hover { color: var(--accent); text-decoration: underline; }
+  .meta { color: var(--muted); font-size: 12.5px; margin-top: 3px; }
+  .dot { opacity: .6; }
+  .task.late .due { color: var(--late); font-weight: 600; }
+  .task.today .due { color: var(--today); font-weight: 600; }
+  .task.week .due { color: var(--week); }
+  .badge { display: inline-block; padding: 0 6px; border-radius: 5px; font-size: 11px;
+           border: 1px solid var(--line); color: var(--muted); }
+  .badge.late { color: var(--late); border-color: currentColor; font-weight: 600; }
+  .task.done .title-line { opacity: .5; text-decoration: line-through; }
+  .empty { color: var(--muted); text-align: center; padding: 40px 0; }
+  footer { max-width: 760px; margin: 28px auto 0; color: var(--muted); font-size: 12px; }
+  footer code { background: var(--card); border: 1px solid var(--line); border-radius: 4px; padding: 1px 5px; }
+  @media print {
+    body { background: #fff; color: #000; padding: 0; }
+    section { border: 1px solid #ddd; break-inside: avoid; }
+    .check { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Classroom To-Do</h1>
+    <div class="summary">
+      Updated Mon Oct 26, 2026 11:30 AM &middot;
+      6 open &middot; 0 overdue &middot; 36 completed
+    </div>
+  </header>
+  <main>
+  <section>
+    <h2>IT Elective 4 (ELEC IT-E4) <span class="count">2</span></h2>
+    <ul>
+      <li class="task nodate" data-key="IT Elective 4 (ELEC IT-E4)|Walang Pamagat na Takdang-aralin">
+        <span class="check" aria-hidden="true"></span>
+        <div class="body">
+          <div class="title-line"><a href="https://classroom.google.com/c/ODc1NDY4NjU0NzUz/a/ODcyNzM2NTQzMjcy/details" target="_blank" rel="noopener">Walang Pamagat na Takdang-aralin</a></div>
+          <div class="meta"><span class="due">no due date</span> <span class=dot>&middot;</span> 30 pts <span class=dot>&middot;</span> <span class="badge">started</span></div>
+        </div>
+      </li>
+      <li class="task nodate" data-key="IT Elective 4 (ELEC IT-E4)|Pre-Assessment Evaluation: ASP.NET Web Application Development Using C#">
+        <span class="check" aria-hidden="true"></span>
+        <div class="body">
+          <div class="title-line"><a href="https://classroom.google.com/c/ODc1NDY4NjU0NzUz/a/ODc1NDc0MDIxNzQw/details" target="_blank" rel="noopener">Pre-Assessment Evaluation: ASP.NET Web Application Development Using C#</a></div>
+          <div class="meta"><span class="due">no due date</span> <span class=dot>&middot;</span> <span class="badge">started</span></div>
+        </div>
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>INTE 401 - Information Assurance and Security 2 <span class="count">3</span></h2>
+    <ul>
+      <li class="task later" data-key="INTE 401 - Information Assurance and Security 2|Research on Ransomware attack on the Philippines">
+        <span class="check" aria-hidden="true"></span>
+        <div class="body">
+          <div class="title-line"><a href="https://classroom.google.com/c/ODQ0Mzk4OTQ5OTU1/a/ODQ0Mzk4OTUwMDIw/details" target="_blank" rel="noopener">Research on Ransomware attack on the Philippines</a></div>
+          <div class="meta"><span class="due">Sat Nov 7, 5:59 PM</span> <span class=dot>&middot;</span> 50 pts <span class=dot>&middot;</span> <span class="badge">started</span></div>
+        </div>
+      </li>
+      <li class="task later" data-key="INTE 401 - Information Assurance and Security 2|Contingency Plan">
+        <span class="check" aria-hidden="true"></span>
+        <div class="body">
+          <div class="title-line"><a href="https://classroom.google.com/c/ODQ0Mzk4OTQ5OTU1/a/ODQ0Mzk4OTUwMDIy/details" target="_blank" rel="noopener">Contingency Plan</a></div>
+          <div class="meta"><span class="due">Sat Nov 7, 5:59 PM</span> <span class=dot>&middot;</span> 50 pts <span class=dot>&middot;</span> <span class="badge">started</span></div>
+        </div>
+      </li>
+      <li class="task later" data-key="INTE 401 - Information Assurance and Security 2|Cyber Security Webinar Certificates">
+        <span class="check" aria-hidden="true"></span>
+        <div class="body">
+          <div class="title-line"><a href="https://classroom.google.com/c/ODQ0Mzk4OTQ5OTU1/a/ODQ0Mzk4OTUwMDIx/details" target="_blank" rel="noopener">Cyber Security Webinar Certificates</a></div>
+          <div class="meta"><span class="due">Tue Dec 22, 11:59 PM</span> <span class=dot>&middot;</span> 100 pts <span class=dot>&middot;</span> <span class="badge">started</span></div>
+        </div>
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>INTE 403 Systems Administration and Maintenance <span class="count">1</span></h2>
+    <ul>
+      <li class="task later" data-key="INTE 403 Systems Administration and Maintenance|Assignment/Activity 5">
+        <span class="check" aria-hidden="true"></span>
+        <div class="body">
+          <div class="title-line"><a href="https://classroom.google.com/c/ODU1NzMzNjc0ODY2/a/ODkzMTk2NzIyNDI2/details" target="_blank" rel="noopener">Assignment/Activity 5</a></div>
+          <div class="meta"><span class="due">Tue Nov 3, 5:59 PM</span> <span class=dot>&middot;</span> 100 pts <span class=dot>&middot;</span> <span class="badge">started</span></div>
+        </div>
+      </li>
+    </ul>
+  </section>
+  </main>
+  <footer>
+    Click an item to tick it off here (saved in this browser only, not in Classroom).
+    Generated by <code>classroom_todo.py</code>.
+  </footer>
+</div>
+<script>
+(function () {
+  var KEY = 'classroom-todo-done';
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) {}
+  document.querySelectorAll('li.task').forEach(function (li) {
+    var k = li.dataset.key;
+    if (saved[k]) li.classList.add('done');
+    li.addEventListener('click', function (e) {
+      if (e.target.closest('a')) return;
+      li.classList.toggle('done');
+      saved[k] = li.classList.contains('done');
+      try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) {}
+    });
+  });
+})();
+</script>
+</body>
+</html>
