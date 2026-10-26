@@ -1,0 +1,14 @@
+# secrets and local state — never commit these
+client_secret.json
+token.json
+refresh.log
+*.log
+
+# local environment
+.venv/
+__pycache__/
+*.pyc
+
+# local markdown snapshots (the published page is index.html)
+TODO.md
+TODO-semester.md
